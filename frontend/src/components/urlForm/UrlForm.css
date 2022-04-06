@@ -1,0 +1,75 @@
+.urlForm {
+    display: flex;
+    justify-content: center;
+
+}
+
+.urlForm form {
+    width: 100%;
+    max-width: 1350px;
+    background: #ccc;
+    padding: 10px 20px;
+}
+
+.urlForm form h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: rgb(20, 103, 50);
+    ;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2 rem;
+}
+
+.urlInput {
+    display: flex;
+    margin: 2rem 0;
+}
+
+.urlInput input {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.4rem;
+    outline: none;
+}
+
+.urlInput button {
+    padding: 15px 25px;
+    font-size: 1.4rem;
+    margin-left: 1rem;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(20, 103, 50);
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width:700px) {
+    .urlInput {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .urlInput input {
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+
+    .urlInput button {
+        margin-left: 0;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .urlInput button {
+        width: 100%;
+    }
+
+    .urlForm form h2 {
+        font-size: 2rem;
+    }
+}

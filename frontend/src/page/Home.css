@@ -1,0 +1,9 @@
+.home {
+    /* background: rgb(99, 92, 92); */
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
+}

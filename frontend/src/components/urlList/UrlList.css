@@ -1,0 +1,52 @@
+.urlList {
+    flex: 1;
+    width: 100%;
+    max-width: 1350px;
+    margin: 10px auto;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+
+.urlList::-webkit-scrollbar {
+    width: .5em;
+}
+
+.urlList::-webkit-scrollbar-track {
+    border-radius: 5px;
+
+}
+
+.urlList::-webkit-scrollbar-thumb {
+    background-color: rgb(20, 103, 50);
+    border-radius: 5px;
+}
+
+
+.urlTable {
+    width: 100%;
+}
+
+.urlTable table {
+    background-color: rgb(238, 248, 242);
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.urlTable table th,
+.urlTable table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.urlTable table th {
+    font-size: 1.7rem;
+    background-color: rgb(20, 103, 50);
+    color: white;
+}
+
+.urlTable table td {
+    font-size: 1.2rem;
+}
