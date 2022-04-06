@@ -1,0 +1,4 @@
+@Entity('url')
+class URL {
+
+}
