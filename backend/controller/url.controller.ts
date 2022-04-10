@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { getConnection } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import Url from "../model/url.model";
 import validUrl from "valid-url";
 import shortid from "shortid"
+
 class urlController {
     private router: Router;
     constructor() {
@@ -11,34 +12,68 @@ class urlController {
         this.initializeRoutes();
     }
     public initializeRoutes() {
+        this.router.get('/', this.getAllRecord)
         this.router.post('/', this.shortenurl)
         this.router.delete('/:id', this.deleteRecord)
+        this.router.get('/:shortcode', this.getRecord)
+    }
+    private async getRecord(req: Request, res: Response) {
+        try {
+            const shortCode = req.params.shortcode
+            const urlRepo = await getConnection('url').getRepository(Url)
+            const record = await urlRepo.find({ where: { shorturlCode: shortCode } })
+            //    res.status(200).json(record)
+            // console.log(record[0].longurl)
+            if (record) {
+                return res.redirect(record[0].longurl!)
+            } else {
+                return res.status(404).json('url nor found')
+            }
+
+
+        } catch (error) {
+            res.status(500).json("server error")
+        }
+    }
+    private async getAllRecord(req: Request, res: Response) {
+        try {
+            const urlRepo = await getConnection('url').getRepository(Url)
+            const records = await urlRepo.find()
+            res.status(200).json(records)
+        } catch (error) {
+            res.status(500).json("server error")
+
+        }
+
     }
     private async shortenurl(req: Request, res: Response) {
         try {
-            if (!validUrl.isUri(req.body.longUrl)) {
-                return res.status(400).json('Invalid URL')
+            const baseUrl = 'http:localhost:5000'
+            const { longUrl } = req.body
+
+            if (!validUrl.isUri(baseUrl)) {
+                return res.status(401).json('Invalid base URL')
             }
-            const inputUrl = new URL(req.body.longUrl);
-            if (inputUrl.protocol !== "https:" && inputUrl.protocol !== "http:") {
-                return res.status(400).json('Invalid URL')
-            }
-            const baseUrl = inputUrl.protocol + "//" + inputUrl.host;
-            console.log("baseurl ", baseUrl)
 
             const urlCode = shortid.generate()
-            const urlRepo = await getConnection('url').getRepository(Url);
-            const urlExists = await urlRepo.find({ where: { longurl: req.body.longUrl } })
-            if (urlExists.length !== 0) {
-                res.status(400).json("url already shortned")
+
+            if (validUrl.isUri(longUrl)) {
+                const urlRepo = await getConnection('url').getRepository(Url)
+                const url = await urlRepo.find({ where: { longurl: longUrl } })
+
+                if (url.length !== 0) {
+                    res.status(400).json("url already shortened");
+                } else {
+                    const shortUrl = baseUrl + '/' + urlCode
+                    const url = new Url();
+                    url.longurl = longUrl,
+                        url.shorturl = shortUrl
+                    url.shorturlCode = urlCode
+                    await urlRepo.save(url)
+                    res.status(200).json(url)
+                }
             } else {
-                const shortUrl = baseUrl + '/' + urlCode
-                console.log(shortUrl)
-                const urlitem = new Url();
-                urlitem.longurl = req.body.longUrl;
-                urlitem.shorturl = shortUrl;
-                await getConnection('url').manager.save(urlitem)
-                res.json(urlitem)
+                res.status(400).json('Invalid longUrl')
             }
         }
         catch (error) {

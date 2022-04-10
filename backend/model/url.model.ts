@@ -2,15 +2,18 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity('url')
 class Url {
     @PrimaryGeneratedColumn("uuid")
-    public id?: String;
+    public id?: string;
 
     @Column()
     // public longurl?: URL | null;
-    public longurl?: String;
+    public longurl?: string;
 
     @Column()
     // public shorturl?: URL | null;
-    public shorturl?: String;
+    public shorturl?: string;
+
+    @Column()
+    public shorturlCode?: string;
 }
 
 export default Url
