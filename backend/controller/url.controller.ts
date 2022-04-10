@@ -48,7 +48,7 @@ class urlController {
     }
     private async shortenurl(req: Request, res: Response) {
         try {
-            const baseUrl = 'http:localhost:5000'
+            const baseUrl = 'http://localhost:5000'
             const { longUrl } = req.body
 
             if (!validUrl.isUri(baseUrl)) {
@@ -62,9 +62,9 @@ class urlController {
                 const url = await urlRepo.find({ where: { longurl: longUrl } })
 
                 if (url.length !== 0) {
-                    res.status(400).json("url already shortened");
+                    res.status(400).json("url already shortened, check below");
                 } else {
-                    const shortUrl = baseUrl + '/' + urlCode
+                    const shortUrl = baseUrl + '/shorten' + '/' + urlCode
                     const url = new Url();
                     url.longurl = longUrl,
                         url.shorturl = shortUrl
@@ -73,7 +73,7 @@ class urlController {
                     res.status(200).json(url)
                 }
             } else {
-                res.status(400).json('Invalid longUrl')
+                res.status(400).json('Invalid Url format')
             }
         }
         catch (error) {

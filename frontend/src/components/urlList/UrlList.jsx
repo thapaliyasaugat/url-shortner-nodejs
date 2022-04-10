@@ -1,30 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./UrlList.css"
+import axios from "axios"
 const UrlList = () => {
-    const data = [
-        { id: 1, name: "Anomgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsf", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Male" },
-        { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        // { id: 1, name: "Meghgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfa", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf19", gender: "Female" },
-        // { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-        { id: 1, name: "Subhgddfkdfdfkndfkdfndfkdnfdkfffffffffffffffdfdfdfddfgbbbgdfjndfsdsusgat fjifjdsfjf fduffdoffodfsdffodsfodsfossofsfam", age: "gfgfgfgfgfgfgfgfgfgfgfgfgfggfgfgfgfgfgfgfgfgfgffgffd ddffdfdf25", gender: "Male" },
-    ]
+    const [urllist, setUrlList] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log("fetching")
+            const data = await axios.get("http://localhost:5000/shorten/", {
+                'Content-Type': 'applcation/json'
+            });
+            setUrlList(data.data)
+            console.log(data.data)
+        }
+        fetchData();
+    }, [])
+    const deleteItem = async (key) => {
+        await axios.delete(`http://localhost:5000/shorten/${key}`)
+        alert("deleted sucessfully")
+        window.location.reload()
+    }
     return (
         <div className='urlList'>
             <div className="urlTable">
@@ -33,17 +28,17 @@ const UrlList = () => {
                         <th>Id</th>
                         <th>LongUrl</th>
                         <th>ShortUrl</th>
-                        <th>shorten_at</th>
+                        {/* <th>shortCode</th> */}
                         <th>Delete</th>
                     </tr>
-                    {data.map((val, key) => {
+                    {urllist.map((val, key) => {
                         return (
                             <tr key={key}>
                                 <td>{val.id}</td>
-                                <td>{val.name}</td>
-                                <td>{val.age}</td>
-                                <td>{val.gender}</td>
-                                <td style={{ color: "green", textAlign: "center" }}><i class="fa fa-trash"></i></td>
+                                <td><a target="_blank" href={val.longurl}>{val.longurl}</a></td>
+                                <td><a target="_blank" href={val.shorturl}>{val.shorturl}</a></td>
+                                {/* <td>{val.shorturlCode}</td> */}
+                                <td onClick={() => (deleteItem(val.id))} style={{ color: "green", textAlign: "center" }}><i class="fa fa-trash"></i></td>
                             </tr>
                         )
                     })}

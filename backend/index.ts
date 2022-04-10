@@ -3,6 +3,7 @@ import { Express } from "express";
 import dotenv from "dotenv"
 import urlController from "./controller/url.controller";
 import { createConnection } from "typeorm";
+import cors from "cors";
 import Url from "./model/url.model";
 class Server {
     private app: Express;
@@ -15,6 +16,7 @@ class Server {
     public setupConfiguration(): void {
         dotenv.config();
         this.app.use(express.json());
+        this.app.use(cors());
     }
     public async setupRoutes(): Promise<void> {
         await createConnection({

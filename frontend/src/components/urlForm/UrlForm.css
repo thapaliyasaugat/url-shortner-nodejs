@@ -11,6 +11,12 @@
     padding: 10px 20px;
 }
 
+.urlForm form p {
+    text-align: center;
+    color: red;
+    font-size: 1.5rem;
+}
+
 .urlForm form h2 {
     text-align: center;
     font-size: 2.5rem;
